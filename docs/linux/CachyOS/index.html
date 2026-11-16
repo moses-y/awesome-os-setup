@@ -1,0 +1,4531 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation">
+      
+      
+        <meta name="author" content="Amine DJEGHRI">
+      
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../../macos_darwin/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../images/logo.png">
+      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>CachyOS Hyprland Developer Workstation Setup - Personal OS Setup</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#cachyos-hyprland-developer-workstation-setup" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Personal OS Setup" class="md-header__button md-logo" aria-label="Personal OS Setup" data-md-component="logo">
+      
+  <img src="../../images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Personal OS Setup
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              CachyOS Hyprland Developer Workstation Setup
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/AmineDjeghri/personal-os-setup" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    personal-os-setup
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Documentation
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../developer/1.setup/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Developer guide
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../examples/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Examples
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../package/personal_os_setup/detect_os/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  API Reference
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../CHANGELOG/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Changelog
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../CONTRIBUTING/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Contributing
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Personal OS Setup" class="md-nav__button md-logo" aria-label="Personal OS Setup" data-md-component="logo">
+      
+  <img src="../../images/logo.png" alt="logo">
+
+    </a>
+    Personal OS Setup
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/AmineDjeghri/personal-os-setup" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    personal-os-setup
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Documentation
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Documentation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../agent-skills/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent skills
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Android tv
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Android tv
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android-tv/nuvio-stremio-aiostreams/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nuvio and Stremio + AIOStreams
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android-tv/readme/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TV Setup (googletv or android tv)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Apps
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Apps
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../apps/apps_configuration_and_shorcuts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Apps configuration and shortcuts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../apps/awesome_websites_browser_extensions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Awesome websites and browser extensions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home server
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Home server
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../home-server/readme/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home server (Ubuntu Server, KVM, Home Assistant OS)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../home-server/ssh-and-tls-fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SSH and TLS and SSL fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_6_3" id="__nav_2_6_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adguard freebox
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_6_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_6_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Adguard freebox
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../home-server/adguard_freebox/readme/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AdGuard Home + Freebox scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_6_4" id="__nav_2_6_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Music
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_6_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_6_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Music
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../home-server/music/music_server/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Music server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6_4_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../home-server/music/youtube_ai_download/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Youtube ai download
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_2_6_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_6_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Youtube ai download
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../home-server/watchtower/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Watchtower
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_6_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_6_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Watchtower
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_7" id="__nav_2_7_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Linux
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CachyOS Hyprland Developer Workstation Setup
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CachyOS Hyprland Developer Workstation Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#goal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Goal
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#secure-boot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Secure Boot
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bootloader-and-filesystem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bootloader and filesystem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#keyboard-layout-defaults-to-qwerty-on-first-login" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Keyboard layout defaults to QWERTY on first login
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#after-first-boot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        After first boot
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#packages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Packages
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#desktop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Desktop
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Desktop">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuration-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration files
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settings-owned-by-noctalia-not-hyprland" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Settings owned by Noctalia, not Hyprland
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#editing-the-lockscreen-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Editing the lockscreen layout
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hyprland-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hyprland plugins
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#secret-storage-gnome-keyring-not-kwallet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Secret storage (gnome-keyring, not KWallet)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shell" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shell
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#theming" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Theming
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gaming" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gaming
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Gaming">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#base-packages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Base packages
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#proton" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Proton
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Proton">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hdr-in-games-proton" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HDR in games (Proton)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gamemode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GameMode
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mangohud" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MangoHud
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hdr-and-10-bit-desktop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HDR and 10-bit desktop
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="HDR and 10-bit desktop">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#verifying-hdr-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verifying HDR actually works
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing-the-cachyos-flow-in-a-vm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testing the CachyOS flow in a VM
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#apps-shortcuts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Apps shortcuts
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_8" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../macos_darwin/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Macos darwin
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Macos darwin
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_9" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../vm/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vm
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Vm
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_10" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../windows_workflow/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Windows workflow
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Windows workflow
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer guide
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Developer guide
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer/1.setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer/2.project-structure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Project structure
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer/3.conventions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Conventions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer/4.testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer/5.release/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Release
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer/6.fork/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Fork
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../examples/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Example
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    personal_os_setup
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    personal_os_setup
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../package/personal_os_setup/detect_os/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    detect_os
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1_2" id="__nav_5_1_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    frontend
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    frontend
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../package/personal_os_setup/frontend/app/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    app
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../package/personal_os_setup/frontend/dialogs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    dialogs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../package/personal_os_setup/frontend/dotfiles_tree/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    dotfiles_tree
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../package/personal_os_setup/frontend/main/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    main
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../package/personal_os_setup/settings/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    settings
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1_4" id="__nav_5_1_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    tasks
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_1_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    tasks
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../package/personal_os_setup/tasks/commands/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    commands
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../package/personal_os_setup/tasks/factory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    factory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1_4_3" id="__nav_5_1_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    managers
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_5_1_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    managers
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../package/personal_os_setup/tasks/managers/_shared/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    _shared
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../package/personal_os_setup/tasks/managers/arch_pacman/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    arch_pacman
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../package/personal_os_setup/tasks/managers/arch_paru/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    arch_paru
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../package/personal_os_setup/tasks/managers/base/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    base
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../package/personal_os_setup/tasks/managers/darwin_brew/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    darwin_brew
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../package/personal_os_setup/tasks/managers/ubuntu_apt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ubuntu_apt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../package/personal_os_setup/tasks/managers/ubuntu_snap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ubuntu_snap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../package/personal_os_setup/tasks/managers/webinstall/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    webinstall
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../package/personal_os_setup/tasks/managers/windows_msstore/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    windows_msstore
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../package/personal_os_setup/tasks/managers/windows_winget/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    windows_winget
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../package/personal_os_setup/tasks/self_update/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    self_update
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../package/personal_os_setup/tasks/sudo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    sudo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1_4_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1_4_6" id="__nav_5_1_4_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    system
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_5_1_4_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1_4_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    system
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../package/personal_os_setup/tasks/system/chezmoi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    chezmoi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../package/personal_os_setup/tasks/system/docker_tasks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    docker_tasks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../package/personal_os_setup/tasks/system/font/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    font
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../package/personal_os_setup/tasks/system/git_credentials/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    git_credentials
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../package/personal_os_setup/tasks/system/help/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    help
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../package/personal_os_setup/tasks/system/nvidia_tasks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    nvidia_tasks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../package/personal_os_setup/tasks/system/windows_tasks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    windows_tasks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../package/personal_os_setup/tasks/system/windows_wsl_tasks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    windows_wsl_tasks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../package/personal_os_setup/tasks/system/zsh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    zsh
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../package/personal_os_setup/tasks/task/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    task
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CONTRIBUTING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#goal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Goal
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#secure-boot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Secure Boot
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bootloader-and-filesystem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bootloader and filesystem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#keyboard-layout-defaults-to-qwerty-on-first-login" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Keyboard layout defaults to QWERTY on first login
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#after-first-boot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        After first boot
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#packages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Packages
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#desktop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Desktop
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Desktop">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuration-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration files
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settings-owned-by-noctalia-not-hyprland" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Settings owned by Noctalia, not Hyprland
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#editing-the-lockscreen-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Editing the lockscreen layout
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hyprland-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hyprland plugins
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#secret-storage-gnome-keyring-not-kwallet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Secret storage (gnome-keyring, not KWallet)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shell" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shell
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#theming" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Theming
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gaming" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gaming
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Gaming">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#base-packages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Base packages
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#proton" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Proton
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Proton">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hdr-in-games-proton" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HDR in games (Proton)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gamemode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GameMode
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mangohud" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MangoHud
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hdr-and-10-bit-desktop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HDR and 10-bit desktop
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="HDR and 10-bit desktop">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#verifying-hdr-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verifying HDR actually works
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing-the-cachyos-flow-in-a-vm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testing the CachyOS flow in a VM
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#apps-shortcuts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Apps shortcuts
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navigation" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Home
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Documentation
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Linux
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="cachyos-hyprland-developer-workstation-setup">CachyOS Hyprland Developer Workstation Setup<a class="headerlink" href="#cachyos-hyprland-developer-workstation-setup" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>Work in progress.</p>
+<p>This document tracks a migration from Windows to a native Linux development
+workstation. It is updated as the setup is tested and refined.</p>
+</blockquote>
+<!-- TOC -->
+<ul>
+<li><a href="#cachyos-hyprland-developer-workstation-setup">CachyOS Hyprland Developer Workstation Setup</a><ul>
+<li><a href="#goal">Goal</a></li>
+<li><a href="#installation">Installation</a><ul>
+<li><a href="#secure-boot">Secure Boot</a></li>
+<li><a href="#bootloader-and-filesystem">Bootloader and filesystem</a></li>
+<li><a href="#keyboard-layout-defaults-to-qwerty-on-first-login">Keyboard layout defaults to QWERTY on first login</a></li>
+<li><a href="#after-first-boot">After first boot</a></li>
+</ul>
+</li>
+<li><a href="#packages">Packages</a></li>
+<li><a href="#desktop">Desktop</a><ul>
+<li><a href="#configuration-files">Configuration files</a></li>
+<li><a href="#settings-owned-by-noctalia-not-hyprland">Settings owned by Noctalia, not Hyprland</a></li>
+<li><a href="#editing-the-lockscreen-layout">Editing the lockscreen layout</a></li>
+<li><a href="#hyprland-plugins">Hyprland plugins</a></li>
+<li><a href="#secret-storage-gnome-keyring-not-kwallet">Secret storage (gnome-keyring, not KWallet)</a></li>
+</ul>
+</li>
+<li><a href="#shell">Shell</a></li>
+<li><a href="#theming">Theming</a></li>
+<li><a href="#gaming">Gaming</a><ul>
+<li><a href="#base-packages">Base packages</a></li>
+<li><a href="#gamemode">GameMode</a></li>
+<li><a href="#mangohud">MangoHud</a></li>
+<li><a href="#proton">Proton</a></li>
+<li><a href="#hdr-and-10-bit-desktop">HDR and 10-bit desktop</a><ul>
+<li><a href="#verifying-hdr-actually-works">Verifying HDR actually works</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#testing-the-cachyos-flow-in-a-vm">Testing the CachyOS flow in a VM</a></li>
+<li><a href="#apps-shortcuts">Apps shortcuts</a></li>
+</ul>
+</li>
+</ul>
+<!-- TOC -->
+
+<h2 id="goal">Goal<a class="headerlink" href="#goal" title="Permanent link">&para;</a></h2>
+<p>Replace a Windows 11 + WSL workflow with a fully native Linux environment.</p>
+<table>
+<thead>
+<tr>
+<th>Before</th>
+<th>After</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Windows 11</td>
+<td>CachyOS</td>
+</tr>
+<tr>
+<td>WSL</td>
+<td>Native Linux development</td>
+</tr>
+<tr>
+<td>GlazeWM</td>
+<td>Hyprland (no KDE Plasma desktop)</td>
+</tr>
+<tr>
+<td>ShareX</td>
+<td>grim + slurp + satty</td>
+</tr>
+<tr>
+<td>Raycast</td>
+<td>Vicinae</td>
+</tr>
+<tr>
+<td>—</td>
+<td>Noctalia (bar / control centre)</td>
+</tr>
+<tr>
+<td>—</td>
+<td>Ghostty (terminal)</td>
+</tr>
+<tr>
+<td>—</td>
+<td>Native Linux gaming</td>
+</tr>
+</tbody>
+</table>
+<p>KDE applications (Dolphin, Spectacle) are used where they are the best option.</p>
+<hr />
+<h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
+<h3 id="secure-boot">Secure Boot<a class="headerlink" href="#secure-boot" title="Permanent link">&para;</a></h3>
+<p>Disabled — the CachyOS installer was blocked by Secure Boot.</p>
+<h3 id="bootloader-and-filesystem">Bootloader and filesystem<a class="headerlink" href="#bootloader-and-filesystem" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Bootloader: <strong>Limine</strong></li>
+<li>Filesystem: <strong>Btrfs</strong></li>
+<li>Encryption: <strong>LUKS</strong></li>
+</ul>
+<h3 id="keyboard-layout-defaults-to-qwerty-on-first-login">Keyboard layout defaults to QWERTY on first login<a class="headerlink" href="#keyboard-layout-defaults-to-qwerty-on-first-login" title="Permanent link">&para;</a></h3>
+<p>Even if you selected <strong>AZERTY</strong> during installation, Hyprland's login/greeter session
+(<strong>noctalia-greeter</strong>, run via <strong>greetd</strong> — already the default for this Hyprland+Noctalia
+setup) can still start in <strong>QWERTY</strong>. The layout lives in
+<code>/var/lib/noctalia-greeter/greeter.toml</code>:</p>
+<div class="language-toml highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">[keyboard]</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">layout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"fr,us"</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">options</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"grp:alt_shift_toggle"</span><span class="w">  </span><span class="c1"># switch layouts with Alt+Shift</span>
+</span></code></pre></div>
+<p>This file is root-owned and lives outside chezmoi's <code>$HOME</code> scope, so it isn't managed
+by this repo yet. This command backs up the original, then upserts the <code>[keyboard]</code>
+section (replacing it if it already exists, appending it if not) without touching the
+rest of the file:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>sudo<span class="w"> </span>cp<span class="w"> </span>/var/lib/noctalia-greeter/greeter.toml<span class="w"> </span>/var/lib/noctalia-greeter/greeter.toml.bak<span class="w"> </span><span class="m">2</span>&gt;/dev/null
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>sudo<span class="w"> </span>awk<span class="w"> </span><span class="s1">'</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="s1">  /^\[keyboard\]/ { print; print "layout = \"fr,us\""; print "options = \"grp:alt_shift_toggle\""; in_kb=1; done=1; next }</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="s1">  /^\[/ &amp;&amp; in_kb { in_kb=0 }</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="s1">  in_kb &amp;&amp; /^(layout|options)[[:space:]]*=/ { next }</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="s1">  { print }</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="s1">  END { if (!done) print "\n[keyboard]\nlayout = \"fr,us\"\noptions = \"grp:alt_shift_toggle\"" }</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="s1">'</span><span class="w"> </span>/var/lib/noctalia-greeter/greeter.toml<span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/var/lib/noctalia-greeter/greeter.toml.new<span class="w"> </span>&gt;/dev/null
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>sudo<span class="w"> </span>mv<span class="w"> </span>/var/lib/noctalia-greeter/greeter.toml.new<span class="w"> </span>/var/lib/noctalia-greeter/greeter.toml
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>greetd
+</span></code></pre></div>
+<p>There is no on-screen button/icon in the greeter to switch layouts — per the
+<a href="https://docs.noctalia.dev/greeter/">Noctalia greeter docs</a>, switching only works
+through the XKB keybind set in <code>options</code> above (Alt+Shift here).</p>
+<p>Until <code>[keyboard]</code> is set, type your password using the QWERTY layout to log in,
+then:</p>
+<ol>
+<li>Log in (QWERTY password entry).</li>
+<li>Install this app and sync the hyprland folder (already set to <code>"fr,us"</code> in this project's config).</li>
+<li>Reboot so the new layout takes effect everywhere, including the login screen.</li>
+<li>Install a browser — this project's <code>packages.yaml</code> already lists <code>helium-browser-bin</code>
+   and <code>brave-bin</code> under <code>cachyos.pacman.Browsers</code>.</li>
+</ol>
+<hr />
+<h3 id="after-first-boot">After first boot<a class="headerlink" href="#after-first-boot" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>sudo<span class="w"> </span>pacman<span class="w"> </span>-Syu
+</span></code></pre></div>
+<p>Verify the NVIDIA driver:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>nvidia-smi
+</span></code></pre></div>
+<p>If this prints GPU information, the driver is working. CachyOS ships the NVIDIA
+stack preinstalled and keeps the kernel module in sync with the running kernel,
+so there is normally nothing to install.</p>
+<p>You can also click the temperature readout in the Noctalia top bar to see CPU
+temperature, GPU name and general system information without opening settings.</p>
+<h2 id="packages">Packages<a class="headerlink" href="#packages" title="Permanent link">&para;</a></h2>
+<p>Most of the packages below are managed by this project — run the app and install
+them from the UI rather than by hand:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>sudo<span class="w"> </span>pacman<span class="w"> </span>-S<span class="w"> </span>make
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>./install_unix.sh
+</span></code></pre></div>
+<p>The catalog lives in <code>src/personal_os_setup/config/packages.yaml</code>, under a single
+<code>cachyos:</code> key. This project targets CachyOS specifically — generic Arch and
+other derivatives are not supported.</p>
+<p>Two package managers are used:</p>
+<ul>
+<li><strong>pacman</strong> — official repositories</li>
+<li><strong>paru</strong> — AUR. CachyOS ships paru by default;</li>
+</ul>
+<p>Vicinae has its own installer:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>curl<span class="w"> </span>-fsSL<span class="w"> </span>https://vicinae.com/install<span class="w"> </span><span class="p">|</span><span class="w"> </span>bash
+</span></code></pre></div>
+<hr />
+<h2 id="desktop">Desktop<a class="headerlink" href="#desktop" title="Permanent link">&para;</a></h2>
+<h3 id="configuration-files">Configuration files<a class="headerlink" href="#configuration-files" title="Permanent link">&para;</a></h3>
+<p>Copy the personal configuration for Hyprland and Noctalia into <code>~/.config</code>.
+Enable <strong>View → Show Hidden Files</strong> in Dolphin to see the directory.</p>
+<p>Verify the keybindings afterward — for example <code>ALT+F</code> for fullscreen.</p>
+<h3 id="settings-owned-by-noctalia-not-hyprland">Settings owned by Noctalia, not Hyprland<a class="headerlink" href="#settings-owned-by-noctalia-not-hyprland" title="Permanent link">&para;</a></h3>
+<p>Some desktop behavior that most Hyprland setups configure in <code>hyprland.conf</code> (or via
+standalone daemons like <code>hypridle</code>/<code>hyprlock</code>/<code>hyprpaper</code>) is instead configured in
+Noctalia's own <code>~/.config/noctalia/config.toml</code>.</p>
+<ul>
+<li><strong>Idle timeout / screen lock / suspend</strong> — <code>[idle.behavior.*]</code>. No <code>hypridle</code>/<code>hyprlock</code> installed or needed.</li>
+<li><strong>Wallpaper</strong> — <code>[theme] source = "wallpaper"</code> plus the <code>nzlov/daily-wallpaper</code>
+  plugin under <code>[plugins]</code>. No <code>swww</code>/<code>hyprpaper</code>.</li>
+<li><strong>Night light / blue light filter</strong> — <code>[nightlight]</code>. Note <code>wlsunset</code> is still in
+  <code>packages.yaml</code> too — check which one is actually active before assuming both run.</li>
+<li><strong>Screenshot pipeline</strong> — <code>[shell.screenshot]</code> routes through Noctalia's own
+  screenshot action (piped to <code>satty</code>).</li>
+<li><strong>Session menu</strong> (lock / logout / reboot / shutdown / suspend) — <code>[[shell.session.actions]]</code>,
+  each with its own shortcut inside the session menu.</li>
+</ul>
+<h3 id="editing-the-lockscreen-layout">Editing the lockscreen layout<a class="headerlink" href="#editing-the-lockscreen-layout" title="Permanent link">&para;</a></h3>
+<p>The lockscreen widget layout is edited live, not through a config file: click the lock
+icon (<code>lockscreen-edit</code> in the bar's <code>start</code> list, top-left of the Noctalia bar) to
+toggle edit mode. Switch to an empty workspace first — otherwise windows behind the
+lockscreen preview get in the way of seeing the live editing.</p>
+<h3 id="hyprland-plugins">Hyprland plugins<a class="headerlink" href="#hyprland-plugins" title="Permanent link">&para;</a></h3>
+<p><code>hyprpm</code> builds plugins from source, so the build tooling above must be
+installed first.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>hyprpm<span class="w"> </span>update
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="c1"># Title bars: drag, close, maximise</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>hyprpm<span class="w"> </span>add<span class="w"> </span>https://github.com/hyprwm/hyprland-plugins
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>hyprpm<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>hyprbars
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>hyprpm<span class="w"> </span>reload
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>hyprpm<span class="w"> </span>list
+</span></code></pre></div>
+<p>Test dragging / closing / maximizing windows for hyprbars. The <code>ALT+TAB</code> window switcher is Noctalia's own
+(<code>noctalia msg window-switcher hold</code>), not a Hyprland plugin.</p>
+<h3 id="secret-storage-gnome-keyring-not-kwallet">Secret storage (gnome-keyring, not KWallet)<a class="headerlink" href="#secret-storage-gnome-keyring-not-kwallet" title="Permanent link">&para;</a></h3>
+<p>Hyprland has no built-in Secret Service — anything that stores secrets (Nautilus/GVfs unlocking a
+LUKS drive, browsers saving passwords, etc.) talks to <code>org.freedesktop.secrets</code> over D-Bus, and
+nothing provides that name unless something starts a daemon for it. KDE's <code>kwallet</code> isn't advised to be used without plasma.</p>
+<p><strong><code>gnome-keyring</code> is used instead</strong> — password-based, no GPG key needed, and the standard choice on non-KDE Wayland compositors:</p>
+<ul>
+<li><strong>Not auto-unlocked with the login password, by choice.</strong> <code>pam_gnome_keyring.so</code> can do this, but it doesn't look at "whichever keyring is currently set as default"</li>
+<li>Apps using <code>libsecret</code> (Nautilus/GVfs, GTK/GNOME apps, Chromium-based browsers) otherwise just work — the manual prompt above is the only friction point.</li>
+<li>To view/delete stored secrets: <code>sudo pacman -S seahorse</code> ("Passwords and Keys" GUI), or <code>secret-tool</code> for CLI lookups. <!-- pragma: allowlist secret --></li>
+<li>Bitwarden (website/app logins, secure notes, cards) is unrelated and doesn't cover this — it doesn't integrate with the system Secret Service, so it can't store or auto-unlock OS-level secrets like this LUKS passphrase, SSH SFTP, or NetworkManager WiFi keys.</li>
+</ul>
+<p><strong>Troubleshooting: <code>Error storing passphrase in keyring (the sessions wrapping the secret does not exist)</code></strong> when unlocking a drive in Nautilus, and/or drives disappearing from the sidebar — Kill and restart Nautilus after installing <code>gnome-keyring</code></p>
+<hr />
+<h2 id="shell">Shell<a class="headerlink" href="#shell" title="Permanent link">&para;</a></h2>
+<p>CachyOS defaults to <strong>fish</strong> as the login shell, with <code>cachyos-fish-config</code> and
+<code>cachyos-zsh-config</code> both installed.</p>
+<p>This setup moves to <strong>zsh</strong> with oh-my-zsh and the powerlevel10k prompt. <code>.zshrc</code> and
+<code>.p10k.zsh</code>, plus oh-my-zsh itself and all its plugins/theme, are managed via
+<a href="https://www.chezmoi.io/">chezmoi</a>, with its source directory vendored inside this
+repo at <code>src/personal_os_setup/config/chezmoi/</code>. oh-my-zsh/plugins/theme are declared as
+<code>git-repo</code> externals in <code>.chezmoiexternal.toml</code>.</p>
+<p>The app's "Sync dotfiles" tab lists every chezmoi-managed file as a checkbox (none
+checked by default — pick which ones you mean to act on); use <strong>diff selected</strong> to
+preview changes, <strong>apply selected</strong> to write them to your home directory, <strong>re-add
+selected</strong> to pull live edits back into the repo, or <strong>forget selected</strong> to stop
+tracking a file (the live file is left untouched — only the repo's copy is removed).
+Check everything and run the corresponding action to reproduce the old whole-tree
+<code>chezmoi apply</code>/<code>diff</code>/<code>re-add</code> behavior. To start tracking a new file, use
+<strong>chezmoi: track a new file</strong> and enter its path — this copies it into the repo (never
+edit a live dotfile directly and expect it to be under version control). chezmoi has
+no auto-backup, so always run <strong>diff selected</strong> before <strong>apply selected</strong>.
+<code>set zsh as default shell</code> remains a separate <code>zsh</code> action</p>
+<hr />
+<h2 id="theming">Theming<a class="headerlink" href="#theming" title="Permanent link">&para;</a></h2>
+<p>Noctalia can set application themes directly (<strong>Noctalia settings → Themes</strong>).
+Personal themes are kept rather than using the bundled ones.</p>
+<p>Do not remove the Qt5/Qt6 theme packages — the Noctalia theme cannot currently
+be removed without affecting them.</p>
+<h2 id="gaming">Gaming<a class="headerlink" href="#gaming" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>packages.yaml</code> lists <code>steam</code> and <code>protonplus</code> under <code>cachyos.pacman.Gaming</code>. Only <code>steam</code> and <code>protonplus</code> are needed for HDR games</li>
+<li>The other pieces below (<code>cachyos-gaming-meta</code>, GameMode, MangoHud) are not yet in the catalog.</li>
+</ul>
+<h3 id="base-packages">Base packages<a class="headerlink" href="#base-packages" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>cachyos-gaming-meta</code> — CachyOS's own meta-package, pulls in <code>gamemode</code>, <code>mangohud</code>,
+  <code>lib32-mesa</code>/<code>lib32-vulkan-*</code> and other 32-bit Proton/Wine runtime deps in one shot.
+  Installing this covers most of the packages below without listing them individually.</li>
+<li>CachyOS already ships a gaming-optimized kernel (<code>linux-cachyos</code>, BORE/EEVDF scheduler)
+  and repo-level <code>-O3</code>/<code>x86-64-v3</code> optimized packages by default — nothing to configure here,
+  it's the baseline the whole distro is built on.</li>
+</ul>
+<h3 id="proton">Proton<a class="headerlink" href="#proton" title="Permanent link">&para;</a></h3>
+<p>Prefer <strong>Proton-CachyOS</strong> (CachyOS's own Proton fork, tracks Proton's bleeding-edge branch)
+over stock Steam Proton for anything demanding — it merges fixes faster and ships newer
+DXVK/HDR support. Install/manage versions via <strong>ProtonPlus</strong> . Set the version per-game in Steam: right-click → Properties → Compatibility →
+"Force the use of a specific Steam Play compatibility tool".</p>
+<p>Install the build through ProtonPlus (e.g. <code>Proton-CachyOS Latest-x86_64_v3</code>, fine on any
+x86-64-v3 CPU).</p>
+<h4 id="hdr-in-games-proton">HDR in games (Proton)<a class="headerlink" href="#hdr-in-games-proton" title="Permanent link">&para;</a></h4>
+<p>Games run through XWayland by default, which has no HDR path, so the in-game HDR option stays
+hidden. Verified working on (UE4, DX11) with an RTX 5070 Ti (NVIDIA 620.x), Hyprland <code>cm = "hdr"</code> and the Proton-CachyOS build above. Per game:</p>
+<ol>
+<li>Turn desktop HDR on first (Noctalia toggle or <code>cm = "hdr"</code>, see below).</li>
+<li>Force the Proton-CachyOS build in Steam → Properties → Compatibility.</li>
+<li>Set Launch Options:</li>
+</ol>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>PROTON_ENABLE_WAYLAND=1 PROTON_ENABLE_HDR=1 DXVK_HDR=1 %command%
+</span></code></pre></div>
+<ul>
+<li><code>PROTON_ENABLE_WAYLAND=1</code> — use Proton's native Wayland driver instead of XWayland.</li>
+<li><code>PROTON_ENABLE_HDR=1</code> — let Proton expose an HDR surface to the game.</li>
+<li><code>DXVK_HDR=1</code> — makes DXVK (DX9/10/11 → Vulkan, bundled in Proton) offer an HDR10 output
+     format. Not a package; skip it for DX12-only games if it causes trouble.</li>
+<li>Start the game and look for the HDR option in its display/graphics settings.</li>
+</ul>
+<p>Some games like Red Dead Redemption 2 shows its HDR options only with the <strong>DirectX 12</strong> API; with Vulkan the
+   option stays hidden even though HDR is active on the desktop. Also force Proton-CachyOS for
+   it, since Steam can leave a game on Proton Experimental.</p>
+<h3 id="gamemode">GameMode<a class="headerlink" href="#gamemode" title="Permanent link">&para;</a></h3>
+<p><code>gamemode</code> temporarily applies CPU governor/scheduler/GPU tweaks while a game runs. Add
+<code>gamemoderun %command%</code> as a Steam launch option per game, or <code>gamemode --dlsym</code>.</p>
+<p>Conflict to know about: <strong>GameMode and <code>ananicy-cpp</code> both try to renice the same
+processes.</strong> If <code>ananicy-cpp</code> is running (check <code>systemctl status ananicy-cpp</code>), stop/disable
+it before relying on GameMode, or expect fights over process priority.</p>
+<h3 id="mangohud">MangoHud<a class="headerlink" href="#mangohud" title="Permanent link">&para;</a></h3>
+<p>FPS/frametime/CPU/GPU overlay. <code>mangohud %command%</code> as a Steam launch option (combine with
+GameMode: <code>gamemode mangohud %command%</code>), or <code>mangohud --dlsym</code> for OpenGL titles that need
+the dlsym hook. Config: <code>~/.config/MangoHud/MangoHud.conf</code>.</p>
+<h3 id="hdr-and-10-bit-desktop">HDR and 10-bit desktop<a class="headerlink" href="#hdr-and-10-bit-desktop" title="Permanent link">&para;</a></h3>
+<p><strong>Quick visual check (two monitors, one HDR + one non-HDR):</strong> Play the same HDR YouTube video
+(e.g. <a href="https://youtu.be/MV5hhbqDNLs?t=145">https://youtu.be/MV5hhbqDNLs?t=145</a>) at 2Min25 in a browser window on each display — one on
+the HDR-enabled monitor, one on a monitor still in SDR (or disable HDR in that monitor).
+Then drag the SDR video window over onto the HDR display, right next to the other one, and compare them side by side.
+If HDR is actually working, the window that started on the HDR display should look visibly brighter/punchier in
+highlights and more saturated than the dragged-over one, even though both are now physically on
+the same HDR-capable panel — because the dragged-in window was already tone-mapped down to SDR
+before the move, while the other was rendered with the real PQ curve and wide gamut from the
+start.  For a rigorous, numeric confirmation (not just "does it look different"), use the mpv IPC method <a href="#verifying-hdr-actually-works">below</a>.</p>
+<p>Desktop HDR is a Hyprland output setting, independent of Steam/Proton — do this first if you
+want HDR games to actually look right, not just run:</p>
+<ol>
+<li>Enable HDR in the monitor's own OSD menu first if your monitor has this.</li>
+<li><code>~/.config/hypr/config/monitors.lua</code>, Real HDR needs both <code>bitdepth = 10</code> <strong>and</strong> <code>cm = "hdr"</code> on the monitor block.
+nwg-displays' GUI does not expose <code>cm</code>, and might not preserve a manually-added <code>cm</code> line the next time</li>
+<li>Verify: <code>hyprctl monitors -j</code> — the target output's <code>currentFormat</code> should move off
+   <code>XRGB8888</code> to a 10-bit format (e.g. XBGR2101010) once both fields are set.</li>
+<li><strong>If YouTube (or other browser video) starts buffering/stuttering after enabling HDR</strong>,
+   reboot the machine and confirm.</li>
+<li><strong>If the HDR monitor looks grey/washed out after the machine has been suspended</strong> (idle
+   long enough to trigger Noctalia's <code>lock-and-suspend</code>, then resumed) — this is a known,
+   confirmed Hyprland bug: HDR/color-management state doesn't get correctly re-committed to
+   the display on resume, even though Hyprland's own config values are still correct
+   (<code>hyprctl monitors -j</code> still reports the right <code>sdrBrightness</code>/<code>sdrMaxLuminance</code>/etc. — the
+   panel just isn't showing it). See
+   <a href="https://github.com/hyprwm/Hyprland/discussions/9724">Washed out colors after resume from hibernation with monitor cm hdr · Issue #9724</a>
+   and the related <a href="https://github.com/hyprwm/Hyprland/discussions/10950">Discussion #10950</a>
+   (same class of bug on any HDR state transition, not just resume). Confirmed fix on this
+   machine: <strong>turn the monitor off and back on</strong> (forces it to re-read the DRM state). If that's
+   inconvenient, <code>hyprctl reload</code> is the documented lighter-weight workaround — try that first.</li>
+<li>To confirm HDR is actually being decoded and displayed correctly end-to-end (not just that
+   the monitor <em>format</em> changed), see <a href="#verifying-hdr-actually-works">Verifying HDR actually works</a>
+   in the apps doc — it queries mpv's live negotiated color state over IPC, rather than trusting the OSD.</li>
+</ol>
+<p>With <code>cm = "hdr"</code> active, non-HDR apps (browser UI, etc.) aren't blasted at full HDR
+brightness — Hyprland maps them into the <code>sdrBrightness</code>/<code>sdrMaxLuminance</code> slice above, while
+surfaces that actually signal HDR metadata (e.g. a real HDR video) get their own negotiated range.</p>
+<h4 id="verifying-hdr-actually-works">Verifying HDR actually works<a class="headerlink" href="#verifying-hdr-actually-works" title="Permanent link">&para;</a></h4>
+<p>End-to-end HDR (source → mpv → Hyprland → panel) was verified using this HDR10 test video:
+<a href="https://www.youtube.com/watch?v=njX2bu-_Vw4">https://www.youtube.com/watch?v=njX2bu-_Vw4</a> — playing it in mpv fullscreen via yt-dlp, then
+querying mpv's live negotiated state over its JSON IPC socket rather than trusting the OSD:</p>
+<ol>
+<li>Launch mpv with an IPC socket so its internal state can be queried while playing:</li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>mpv<span class="w"> </span>--input-ipc-server<span class="o">=</span>/tmp/mpvsocket<span class="w"> </span>--fullscreen<span class="w"> </span><span class="s2">"https://www.youtube.com/watch?v=njX2bu-_Vw4"</span>
+</span></code></pre></div>
+<ol>
+<li>From another terminal, query the three relevant properties via <code>socat</code> (or <code>echo</code> piped to
+   <code>nc -U</code>):</li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s1">'{"command":["get_property","video-params"]}'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>socat<span class="w"> </span>-<span class="w"> </span>/tmp/mpvsocket
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="nb">echo</span><span class="w"> </span><span class="s1">'{"command":["get_property","video-out-params"]}'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>socat<span class="w"> </span>-<span class="w"> </span>/tmp/mpvsocket
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="nb">echo</span><span class="w"> </span><span class="s1">'{"command":["get_property","video-target-params"]}'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>socat<span class="w"> </span>-<span class="w"> </span>/tmp/mpvsocket
+</span></code></pre></div>
+<ol>
+<li>
+<p>What each answers:</p>
+<ul>
+<li><strong><code>video-params</code></strong> — the <em>source</em>'s real color metadata. HDR10 content should report
+  <code>primaries: bt.2020</code>, <code>gamma: pq</code>, plus a mastering <code>max-luma</code>/<code>max-cll</code>.</li>
+<li><strong><code>video-out-params</code></strong> — what mpv actually sends to the display. If this matches
+  <code>video-params</code> (same primaries/gamma/max-luma), mpv is passing the real HDR signal through
+  rather than tone-mapping it down to SDR before output.</li>
+<li><strong><code>video-target-params</code></strong> — what mpv detected the <em>display itself</em> can do, negotiated live
+  through Hyprland's Wayland color-management protocol (mpv needs
+  <code>--target-colorspace-hint</code> for this). A genuine <code>bt.2020</code>/<code>pq</code> result with a <code>max-luma</code>
+  close to the panel's real peak-nit spec (not clamped to ~225 or ~500 nits) confirms
+  Hyprland is correctly advertising the display's HDR capability and mpv is targeting it.</li>
+</ul>
+</li>
+<li>
+<p>A <code>solitaryBlockedBy: ['OPAQUE']</code> flag may still show up in Hyprland's scene-graph debug
+   output for the mpv surface — that only affects <em>direct scanout</em> eligibility (a compositing
+   performance optimization), not the color/brightness pipeline, so it doesn't indicate broken
+   HDR.</p>
+</li>
+<li>Quick on-screen sanity check without IPC: press <code>I</code> in mpv for the full stats overlay,
+   which also lists the negotiated colorspace/gamma/luma fields (less detail than the IPC query,
+   but fast to eyeball, and stays in view when using windowed test videos).</li>
+</ol>
+<h2 id="testing-the-cachyos-flow-in-a-vm">Testing the CachyOS flow in a VM<a class="headerlink" href="#testing-the-cachyos-flow-in-a-vm" title="Permanent link">&para;</a></h2>
+<p>Try the setup in a disposable KVM/QEMU VM on any Linux host first (host setup, cleanup and the firewall fix:
+<a href="../../vm/">Testing this project in a VM</a>):</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Guest</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>make vm-deps</code></td>
+<td>Run once first (then log out/in for the <code>libvirt</code>/<code>kvm</code> groups)</td>
+</tr>
+<tr>
+<td><code>make vm-cachyos</code></td>
+<td>CachyOS, manual ISO install; downloads the ISO and opens a GUI console</td>
+</tr>
+</tbody>
+</table>
+<p>Manage the VM:</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>make vm-list</code></td>
+<td>List this project's libvirt VMs and their state</td>
+</tr>
+<tr>
+<td><code>make vm-clean</code></td>
+<td>Destroy and undefine all this project's VMs and wipe their disks (keeps cached ISOs)</td>
+</tr>
+<tr>
+<td><code>make vm-clean-isos</code></td>
+<td>Delete cached install ISOs too (re-downloaded on the next <code>make vm-*</code>)</td>
+</tr>
+</tbody>
+</table>
+<p>The ISO URL is scraped from SourceForge and is <strong>not checksum-verified</strong>; if that breaks, the script tells you to download
+the ISO yourself from <a href="https://cachyos.org/download/">cachyos.org</a>. Inside the guest, run the
+<a href="../../../#linux-and-wsl2-and-macos">Linux one-liner</a>, then <code>personal-os-setup</code>. Re-running <code>make vm-cachyos</code> starts the
+existing VM again.</p>
+<h2 id="apps-shortcuts">Apps shortcuts<a class="headerlink" href="#apps-shortcuts" title="Permanent link">&para;</a></h2>
+<p>For per-app configuration and shortcuts (Vicinae, Obsidian, PyCharm, Bitwarden, Nautilus,
+the terminal tools cheatsheet), plus a table of what's available on CachyOS vs. Windows/macOS
+and their alternatives, check
+<a href="../../apps/apps_configuration_and_shorcuts/#app-availability-and-alternatives-across-oses">apps_configuration_and_shorcuts.md</a>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["search.suggest", "search.highlight", "search.share", "navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "navigation.indexes", "navigation.top", "toc.follow", "content.code.copy", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

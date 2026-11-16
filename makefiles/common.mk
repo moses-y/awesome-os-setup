@@ -8,13 +8,15 @@ ENV_FILE_PATH := .env
 -include $(ENV_FILE_PATH) # keep the '-' to ignore this file if it doesn't exist.(Used in gitlab ci)
 
 # Colors
-GREEN=\033[0;32m
-YELLOW=\033[0;33m
-NC=\033[0m
+GREEN := $(shell printf '\033[0;32m')
+YELLOW := $(shell printf '\033[0;33m')
+RED := $(shell printf '\033[0;31m')
+CYAN := $(shell printf '\033[0;36m')
+NC := $(shell printf '\033[0m')
 
 # UV path detection
 ifeq ($(OS),Windows_NT)
 UV := uv
 else
-UV := "$$HOME/.local/bin/uv" # keep the quotes incase the path contains spaces
+UV := $(shell command -v uv 2>/dev/null || echo "$$HOME/.local/bin/uv")
 endif

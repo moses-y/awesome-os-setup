@@ -1,0 +1,547 @@
+"""Textual-based terminal UI for personal-os-setup.
+
+This module wires together:
+- package selection + install (from the packages catalog)
+- system actions (from the tasks factory), one tab per section
+- a Textual background worker to keep the UI responsive during installs/actions
+"""
+
+from __future__ import annotations
+
+import itertools
+import shutil
+from datetime import datetime
+from pathlib import Path
+from typing import Callable
+
+from textual import work
+from textual.app import App, ComposeResult
+from textual.containers import Horizontal, Vertical, VerticalScroll
+from textual.reactive import reactive
+from textual.widgets import (
+    Button,
+    Collapsible,
+    Footer,
+    Header,
+    Label,
+    LoadingIndicator,
+    Markdown,
+    ProgressBar,
+    RichLog,
+    SelectionList,
+    TabbedContent,
+    TabPane,
+    Tree,
+)
+from textual.widgets.selection_list import Selection
+from textual.widgets.tree import TreeNode
+
+from personal_os_setup.detect_os import PackageRef, build_packages_for_os
+from personal_os_setup.frontend.dialogs import ConfirmScreen, PromptScreen
+from personal_os_setup.frontend.dotfiles_tree import DotfileTreeNode, build_dotfiles_tree
+from personal_os_setup.settings import logger
+from personal_os_setup.tasks import commands
+from personal_os_setup.tasks.factory import (
+    SystemAction,
+    get_package_manager,
+    get_system_action_sections,
+)
+from personal_os_setup.tasks.system.chezmoi import (
+    chezmoi_apply,
+    chezmoi_diff,
+    chezmoi_forget,
+    chezmoi_managed_paths,
+    chezmoi_re_add,
+)
+from personal_os_setup.tasks.task import TaskResult
+
+_CSS_PATH = Path(__file__).with_name("app.tcss")
+_LOGS_TAB_LABEL = "📋 Logs"
+_START_SECTION_NAME = "🚀 Start"
+_DOTFILES_SECTION_NAME = "Sync dotfiles"
+_DOTFILES_TREE_ID = "dotfiles-selection-list"
+_CHECKED_GLYPH = "☑"
+_UNCHECKED_GLYPH = "☐"
+_PARTIAL_GLYPH = "◐"
+
+
+def _start_guide_distro_substep(distro: str) -> str:
+    """Per-distro extra sub-step inserted as `2.1` between the zsh-config and packages steps."""
+    if distro == "cachyos":
+        return f"""
+**2.1. Sync `noctalia`, then `hyprland`** (tab **{_DOTFILES_SECTION_NAME}**): in the file tree \
+below the buttons, select `noctalia` and click `apply selected` \
+then select `hyprland` and click `apply selected`. Add the hyprland plugins like mentioned in \
+the notifications or logs,, then click `apply selected` on the `hypr` folder again to enable them.
+"""
+    return ""
+
+
+def _start_guide_markdown(distro: str) -> str:
+    return f"""\
+## Welcome — first-time setup walkthrough
+
+**1. Set up zsh** (tab **{_DOTFILES_SECTION_NAME}**), click these buttons in order:
+
+1. `install zsh setup prerequisites`
+2. `install JetBrainsMono Nerd Font`
+3. `sync zsh plugins/theme`
+4. `set zsh as default shell` (requires logging out or rebooting)
+
+**2. Apply your zsh config** (tab **{_DOTFILES_SECTION_NAME}**): in the file tree below \
+the buttons, select `.zshrc` and `.p10k.zsh`, then click `apply selected`.
+{_start_guide_distro_substep(distro)}
+**3. Install packages** (tab **📦 Packages**): expand the categories, check the \
+packages you want, then click `Install selected`.
+
+**4. Sync the rest of your `~/.config`** (tab **{_DOTFILES_SECTION_NAME}**): select any \
+other entries you want tracked in the file tree, then click `apply selected` again.
+
+---
+
+### Documentation
+"""
+
+
+class PersonalOsSetupApp(App[None]):
+    """Terminal UI for detecting the host OS and installing packages / running system actions."""
+
+    TITLE = "Personal OS Setup"
+    CSS_PATH = _CSS_PATH
+
+    BINDINGS = [
+        ("q", "quit", "Quit"),
+        ("i", "install_selected", "Install selected"),
+        ("ctrl+l", "clear_log", "Clear log"),
+    ]
+
+    is_busy: reactive[bool] = reactive(False)
+
+    def __init__(self) -> None:
+        super().__init__()
+        system, distro, info, packages = build_packages_for_os()
+        self._system = system
+        self._distro = distro
+        self._info = info
+        self._packages = packages
+        self._buttons: list[Button] = []
+        self._action_by_button_id: dict[str, tuple[str, SystemAction]] = {}
+        self._button_id_counter = itertools.count()
+        self._unread_log_count = 0
+        self._dotfiles_selected: set[Path] = set()
+
+    @staticmethod
+    def _group_actions_into_rows(actions: list[SystemAction]) -> list[list[SystemAction]]:
+        """Group adjacent actions sharing a non-`None` `group` onto one row each."""
+        rows: list[list[SystemAction]] = []
+        for action in actions:
+            if action.group is not None and rows and rows[-1][0].group == action.group:
+                rows[-1].append(action)
+            else:
+                rows.append([action])
+        return rows
+
+    def _grouped_packages(self) -> list[tuple[str, list[PackageRef]]]:
+        """Group `self._packages` by category, "terminal_tools" first, then alphabetically."""
+        groups: dict[str, list[PackageRef]] = {}
+        for p in self._packages:
+            groups.setdefault(p.category, []).append(p)
+        for pkgs in groups.values():
+            pkgs.sort(key=lambda p: (p.manager, p.name))
+        return [
+            (category, groups[category])
+            for category in sorted(
+                groups, key=lambda c: (0 if c.lower() == "terminal_tools" else 1, c.lower())
+            )
+        ]
+
+    def _compose_section_pane(
+        self, section_name: str, actions: list[SystemAction]
+    ) -> ComposeResult:
+        """Render one section's `TabPane` (generic action buttons, or a special-cased layout)."""
+        with TabPane(section_name, id=f"section-{next(self._button_id_counter)}"):
+            with Vertical(classes="action-pane"):
+                if section_name == _DOTFILES_SECTION_NAME:
+                    with Horizontal(classes="action-row"):
+                        for action in actions:
+                            button_id = f"action-btn-{next(self._button_id_counter)}"
+                            self._action_by_button_id[button_id] = (section_name, action)
+                            yield Button(action.label, id=button_id)
+                    with Horizontal(id="dotfiles-toolbar"):
+                        yield Button("diff selected", id="btn-dotfiles-diff")
+                        yield Button("apply selected", id="btn-dotfiles-apply", variant="success")
+                        yield Button("re-add selected", id="btn-dotfiles-readd")
+                        yield Button("forget selected", id="btn-dotfiles-forget", variant="error")
+                    with VerticalScroll(id="dotfiles-list-container"):
+                        dotfiles_tree: Tree[DotfileTreeNode] = Tree("~", id=_DOTFILES_TREE_ID)
+                        self._build_dotfiles_tree(dotfiles_tree, chezmoi_managed_paths())
+                        yield dotfiles_tree
+                elif section_name == _START_SECTION_NAME:
+                    with VerticalScroll(classes="action-list-container"):
+                        yield Markdown(_start_guide_markdown(self._distro))
+                        for row in self._group_actions_into_rows(actions):
+                            with Horizontal(classes="action-row"):
+                                for action in row:
+                                    button_id = f"action-btn-{next(self._button_id_counter)}"
+                                    self._action_by_button_id[button_id] = (section_name, action)
+                                    yield Button(action.label, id=button_id)
+                else:
+                    with VerticalScroll(classes="action-list-container"):
+                        for row in self._group_actions_into_rows(actions):
+                            with Horizontal(classes="action-row"):
+                                for action in row:
+                                    button_id = f"action-btn-{next(self._button_id_counter)}"
+                                    self._action_by_button_id[button_id] = (section_name, action)
+                                    yield Button(action.label, id=button_id)
+
+    def compose(self) -> ComposeResult:
+        yield Header()
+        sections = get_system_action_sections(
+            system=self._system, distro=self._distro, info=self._info, packages=self._packages
+        )
+        start_section = next((s for s in sections if s[0] == _START_SECTION_NAME), None)
+        other_sections = [s for s in sections if s[0] != _START_SECTION_NAME]
+
+        with TabbedContent(id="main-tabs"):
+            if start_section is not None:
+                yield from self._compose_section_pane(*start_section)
+
+            with TabPane("📦 Packages", id="packages"):
+                with Vertical():
+                    with Horizontal(id="packages-toolbar"):
+                        yield Button("Install selected", id="btn-install", variant="success")
+                        yield Label("Ready", id="install-status")
+                        yield ProgressBar(id="install-progress", show_eta=False)
+                    with VerticalScroll(id="package-list-container"):
+                        for category, pkgs in self._grouped_packages():
+                            with Collapsible(
+                                title=f"{category} ({len(pkgs)})",
+                                collapsed=category.lower() != "terminal_tools",
+                                classes="package-category",
+                            ):
+                                yield SelectionList[PackageRef](
+                                    *[Selection(f"{p.name} ({p.manager})", p) for p in pkgs],
+                                    classes="category-list",
+                                )
+
+            for section_name, actions in other_sections:
+                yield from self._compose_section_pane(section_name, actions)
+
+            with TabPane(_LOGS_TAB_LABEL, id="logs"):
+                yield RichLog(id="log-widget", markup=False, wrap=True)
+
+        with Horizontal(id="status-row"):
+            yield LoadingIndicator(id="busy-indicator")
+            yield Label("Ready", id="status-bar")
+        yield Footer()
+
+    def on_mount(self) -> None:
+        info = f" | info: {self._info}" if self._info else ""
+        self.sub_title = f"OS: {self._system} | Distro: {self._distro}{info}"
+        self._buttons = list(self.query(Button))
+        self.query_one("#busy-indicator", LoadingIndicator).display = False
+
+    # ── Reactive busy state ──────────────────────────────────────────────────
+
+    def watch_is_busy(self, busy: bool) -> None:
+        """Enable/disable actions and toggle the busy indicator when `is_busy` changes."""
+        for btn in self._buttons:
+            btn.disabled = busy
+        self.query_one("#busy-indicator", LoadingIndicator).display = busy
+        self.query_one("#status-bar", Label).update("Busy: running a job..." if busy else "Ready")
+
+    # ── Logging ──────────────────────────────────────────────────────────────
+
+    def _log(self, message: str) -> None:
+        """Log to both the UI log panel and the Python logger."""
+        self.query_one("#log-widget", RichLog).write(message)
+        logger.debug(message)
+        if self.query_one("#main-tabs", TabbedContent).active != "logs":
+            self._unread_log_count += 1
+            self._update_logs_tab_label()
+
+    def _update_logs_tab_label(self) -> None:
+        tab = self.query_one("#main-tabs", TabbedContent).get_tab("logs")
+        if self._unread_log_count:
+            tab.label = f"{_LOGS_TAB_LABEL} ({self._unread_log_count})"
+        else:
+            tab.label = _LOGS_TAB_LABEL
+
+    def on_tabbed_content_tab_activated(self, event: TabbedContent.TabActivated) -> None:
+        if event.pane.id == "logs" and self._unread_log_count:
+            self._unread_log_count = 0
+            self._update_logs_tab_label()
+
+    # ── Bindings ─────────────────────────────────────────────────────────────
+
+    def action_install_selected(self) -> None:
+        self._on_install_selected()
+
+    def action_clear_log(self) -> None:
+        self.query_one("#log-widget", RichLog).clear()
+        self._unread_log_count = 0
+        self._update_logs_tab_label()
+
+    # ── Package install ──────────────────────────────────────────────────────
+
+    def _on_install_selected(self) -> None:
+        if self.is_busy:
+            self.notify("Busy: another task is running", severity="warning")
+            return
+
+        selected: list[PackageRef] = []
+        for selection_list in self.query_one("#package-list-container").query(SelectionList):
+            selected.extend(selection_list.selected)
+        if not selected:
+            self.notify("No packages selected", severity="warning")
+            return
+
+        self.is_busy = True
+        self._install_packages_worker(selected)
+
+    @work(thread=True, exclusive=True, group="jobs")
+    def _install_packages_worker(self, selected: list[PackageRef]) -> None:
+        total = len(selected)
+        succeeded = 0
+        progress = self.query_one("#install-progress", ProgressBar)
+        status = self.query_one("#install-status", Label)
+        self.call_from_thread(progress.update, total=total, progress=0)
+
+        token = commands.set_stream_sink(lambda line: self.call_from_thread(self._log, line))
+        try:
+            for i, p in enumerate(selected, start=1):
+                pm = get_package_manager(distro=self._distro, manager=p.manager)
+                if pm is None:
+                    self.call_from_thread(
+                        self._log,
+                        f"No installer available for {p.manager} on {self._distro} (coming soon)",
+                    )
+                elif pm.is_installed(p.name):
+                    succeeded += 1
+                    self.call_from_thread(self._log, f"{p.name}: already installed")
+                else:
+                    res = pm.install(p.name)
+                    succeeded += 1 if res.ok else 0
+                    self.call_from_thread(self._log, res.summary)
+                    if res.details:
+                        self.call_from_thread(self._log, res.details)
+
+                self.call_from_thread(progress.update, progress=i)
+                self.call_from_thread(status.update, f"{i}/{total} installed")
+        finally:
+            commands.reset_stream_sink(token)
+            self.call_from_thread(
+                self.notify,
+                f"Install job finished: {succeeded}/{total} packages ready",
+                severity="information" if succeeded == total else "warning",
+            )
+            self.call_from_thread(setattr, self, "is_busy", False)
+
+    # ── System actions ───────────────────────────────────────────────────────
+
+    def _on_action_button(self, section_name: str, action: SystemAction) -> None:
+        if self.is_busy:
+            self.notify("Busy: another task is running", severity="warning")
+            return
+
+        name = f"{section_name}: {action.label}"
+
+        def _after_prompt(value: str | None) -> None:
+            if value is None:
+                return
+            self.is_busy = True
+            self._run_action_worker(action, name, value)
+
+        def _maybe_prompt() -> None:
+            if action.run_with_prompt is not None and action.prompt_label is not None:
+                self.push_screen(
+                    PromptScreen(
+                        title="Input", label=action.prompt_label, initial=action.prompt_initial
+                    ),
+                    _after_prompt,
+                )
+                return
+            self.is_busy = True
+            self._run_action_worker(action, name, None)
+
+        if action.confirm:
+
+            def _after_confirm(confirmed: bool) -> None:
+                if confirmed:
+                    _maybe_prompt()
+
+            self.push_screen(
+                ConfirmScreen(
+                    title="Confirm", text=action.confirm_message or f"Proceed with: {name}?"
+                ),
+                _after_confirm,
+            )
+            return
+
+        _maybe_prompt()
+
+    @work(thread=True, exclusive=True, group="jobs")
+    def _run_action_worker(self, action: SystemAction, name: str, prompt_value: str | None) -> None:
+        token = commands.set_stream_sink(lambda line: self.call_from_thread(self._log, line))
+        try:
+            self.call_from_thread(self._log, f"Running: {name}...")
+
+            target = action.backup_target
+            if target is not None:
+                ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+                default_backup = (
+                    target.with_name(f"{target.stem}_{ts}_backup{target.suffix}")
+                    if target.suffix
+                    else target.with_name(f"{target.name}_{ts}_backup")
+                )
+                try:
+                    if target.exists():
+                        default_backup.parent.mkdir(parents=True, exist_ok=True)
+                        shutil.copy2(target, default_backup)
+                        self.call_from_thread(self._log, f"backup created: {default_backup}")
+                except Exception as e:  # noqa: BLE001
+                    self.call_from_thread(self._log, f"backup: failed ({e})")
+
+            if prompt_value is not None and action.run_with_prompt is not None:
+                res = action.run_with_prompt(prompt_value)
+            else:
+                res = action.run()
+
+            self.call_from_thread(self._log, res.summary)
+            if res.details:
+                self.call_from_thread(self._log, res.details)
+            self.call_from_thread(
+                self.notify, res.summary, severity="information" if res.ok else "error"
+            )
+        except Exception as e:  # noqa: BLE001
+            self.call_from_thread(self._log, f"{name}: failed")
+            self.call_from_thread(self._log, str(e))
+            self.call_from_thread(self.notify, f"{name}: failed", severity="error")
+        finally:
+            commands.reset_stream_sink(token)
+            if name.startswith(f"{_DOTFILES_SECTION_NAME}:"):
+                self.call_from_thread(self._apply_dotfiles_list, chezmoi_managed_paths())
+            self.call_from_thread(setattr, self, "is_busy", False)
+
+    # ── Dotfiles selection (chezmoi) ─────────────────────────────────────────
+    def _dotfiles_action_specs(
+        self,
+    ) -> dict[str, tuple[str, Callable[[list[Path]], TaskResult], bool, str]]:
+        return {
+            "btn-dotfiles-diff": ("chezmoi: diff selected", chezmoi_diff, False, ""),
+            "btn-dotfiles-apply": (
+                "chezmoi: apply selected",
+                chezmoi_apply,
+                True,
+                "This applies the selected dotfile(s) to your home directory. Run 'diff "
+                "selected' first to preview. Proceed?",
+            ),
+            "btn-dotfiles-readd": (
+                "chezmoi: re-add selected",
+                chezmoi_re_add,
+                True,
+                "This pulls the selected dotfile(s) from your home directory back into the "
+                "repo's chezmoi source dir, overwriting the vendored versions there. Proceed?",
+            ),
+            "btn-dotfiles-forget": (
+                "chezmoi: forget selected",
+                chezmoi_forget,
+                True,
+                "This stops tracking the selected dotfile(s) in the repo's chezmoi source dir. "
+                "The live file(s) in your home directory are left untouched. Proceed?",
+            ),
+        }
+
+    def _on_dotfiles_selected_action(
+        self, spec: tuple[str, Callable[[list[Path]], TaskResult], bool, str]
+    ) -> None:
+        label, run_with_targets, confirm, confirm_message = spec
+        selected: list[Path] = list(self._dotfiles_selected)
+        if not selected:
+            self.notify("No dotfiles selected", severity="warning")
+            return
+
+        action = SystemAction(
+            label=label,
+            run=lambda: run_with_targets(selected),
+            confirm=confirm,
+            confirm_message=confirm_message or None,
+        )
+        self._on_action_button(_DOTFILES_SECTION_NAME, action)
+
+    def _apply_dotfiles_list(self, paths: list[Path]) -> None:
+        """Rebuild the dotfiles tree from a fresh path list, pruning stale selections."""
+        self._dotfiles_selected &= set(paths)
+        tree = self.query_one(f"#{_DOTFILES_TREE_ID}", Tree)
+        self._build_dotfiles_tree(tree, paths)
+
+    def _build_dotfiles_tree(self, tree: Tree[DotfileTreeNode], paths: list[Path]) -> None:
+        """(Re)populate `tree` with `paths` grouped into folders under the home dir."""
+        tree.clear()
+        data = build_dotfiles_tree(paths, Path.home())
+        tree.root.data = data
+        self._add_dotfiles_tree_children(tree.root, data)
+        tree.root.expand()
+        self._refresh_dotfiles_labels(tree.root)
+
+    def _add_dotfiles_tree_children(
+        self, tree_node: TreeNode[DotfileTreeNode], data_node: DotfileTreeNode
+    ) -> None:
+        for name in sorted(data_node.children):
+            child_data = data_node.children[name]
+            if child_data.is_file:
+                tree_node.add_leaf(name, data=child_data)
+            else:
+                branch = tree_node.add(name, data=child_data)
+                self._add_dotfiles_tree_children(branch, child_data)
+
+    def _refresh_dotfiles_labels(self, tree_node: TreeNode[DotfileTreeNode]) -> None:
+        """Recompute and set every node's checkbox-glyph label from `_dotfiles_selected`."""
+        if tree_node.data is not None:
+            tree_node.set_label(self._dotfiles_node_label(tree_node.data))
+        for child in tree_node.children:
+            self._refresh_dotfiles_labels(child)
+
+    def _dotfiles_node_label(self, data: DotfileTreeNode) -> str:
+        all_paths = data.all_file_paths()
+        checked = sum(1 for p in all_paths if p in self._dotfiles_selected)
+        if checked == 0:
+            glyph = _UNCHECKED_GLYPH
+        elif checked == len(all_paths):
+            glyph = _CHECKED_GLYPH
+        else:
+            glyph = _PARTIAL_GLYPH
+        return f"{glyph} {data.name}"
+
+    def on_tree_node_selected(self, event: Tree.NodeSelected[DotfileTreeNode]) -> None:
+        """Toggle checkbox selection for a dotfiles-tree node (file or whole folder)."""
+        if event.node.tree.id != _DOTFILES_TREE_ID:
+            return
+        data = event.node.data
+        if data is None:
+            return
+        all_paths = data.all_file_paths()
+        fully_checked = all(p in self._dotfiles_selected for p in all_paths)
+        if fully_checked:
+            self._dotfiles_selected.difference_update(all_paths)
+        else:
+            self._dotfiles_selected.update(all_paths)
+        self._refresh_dotfiles_labels(event.node.tree.root)
+
+    # ── Event handlers ───────────────────────────────────────────────────────
+
+    def on_button_pressed(self, event: Button.Pressed) -> None:
+        button_id = event.button.id
+        if button_id == "btn-install":
+            self._on_install_selected()
+            return
+
+        dotfiles_spec = self._dotfiles_action_specs().get(button_id or "")
+        if dotfiles_spec is not None:
+            self._on_dotfiles_selected_action(dotfiles_spec)
+            return
+
+        mapped = self._action_by_button_id.get(button_id or "")
+        if mapped is not None:
+            section_name, action = mapped
+            self._on_action_button(section_name, action)
